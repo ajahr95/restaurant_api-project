@@ -25,7 +25,7 @@ SECRET_KEY = 'o7#*83pnb$h$(s3xt4if8ea9ofci9_2o8rcvhkx030+z)h2)^('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'burgerrestaurantapi.herokuapp.com']
 
 
 # Application definition
@@ -78,16 +78,15 @@ WSGI_APPLICATION = 'restaurant_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'restaurantdb',
-        'USER': 'postgres',
-        'PASSWORD': 'superpostgresuser2020',
-        'HOST': 'localhost',
-        'PORT': '5432',
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
+import dj_database_url
+
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -126,3 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
