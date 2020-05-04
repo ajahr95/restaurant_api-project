@@ -23,6 +23,12 @@ class HamburguesaView(APIView):
         return Response(result, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
+        
+        data = request.data
+
+        for parametro in data:
+            if parametro not in ("nombre", "precio", "descripcion", "imagen"):
+                return Response(status=status.HTTP_400_BAD_REQUEST)
 
         serializer = self.serializer_class(data=request.data)
 
@@ -167,6 +173,12 @@ class IngredienteView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
+        
+        data = request.data
+        
+        for parametro in data:
+            if parametro not in ("nombre", "descripcion"):
+                return Response(status=status.HTTP_400_BAD_REQUEST)
 
         serializer = self.serializer_class(data=request.data)
 
