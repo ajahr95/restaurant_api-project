@@ -19,7 +19,7 @@ class HamburguesaView(APIView):
             hamburguesa_id = result[index]['id']
             ingredientes = IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id)
             for element in ingredientes:
-                result[index]['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/' + str(element.pk)})
+                result[index]['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/' + str(element.ingrediente_id.pk)})
 
         return Response(result, status=status.HTTP_200_OK)
 
@@ -58,7 +58,7 @@ class HamburguesaIdView(APIView):
             result['ingredientes']=[]
             ingredientes = IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id)
             for element in ingredientes:
-                result['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/'+ str(element.pk)})
+                result['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/'+ str(element.ingrediente_id.pk)})
             return Response(result, status=status.HTTP_200_OK)
 
         except Hamburguesa.DoesNotExist:
@@ -85,7 +85,7 @@ class HamburguesaIdView(APIView):
                 result['ingredientes']=[]
                 ingredientes = IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id)
                 for element in ingredientes:
-                    result['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/' + str(element.pk)})
+                    result['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/' + str(element.ingrediente_id.pk)})
                 return Response(result, status=status.HTTP_200_OK)
 
             else:
