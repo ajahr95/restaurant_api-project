@@ -17,7 +17,8 @@ class HamburguesaView(APIView):
         for index in range(len(result)):
             result[index]['ingredientes'] = []
             hamburguesa_id = result[index]['id']
-            for element in IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id):
+            ingredientes = IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id)
+            for element in ingredientes:
                 result[index]['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/' + str(element.pk)})
 
         return Response(result, status=status.HTTP_200_OK)
@@ -55,8 +56,8 @@ class HamburguesaIdView(APIView):
             serializer = self.serializer_class(data)
             result = serializer.data
             result['ingredientes']=[]
-        
-            for element in IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id):
+            ingredientes = IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id)
+            for element in ingredientes:
                 result['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/'+ str(element.pk)})
             return Response(result, status=status.HTTP_200_OK)
 
@@ -82,8 +83,8 @@ class HamburguesaIdView(APIView):
                 serializer.save()
                 result = serializer.data
                 result['ingredientes']=[]
-        
-                for element in IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id):
+                ingredientes = IngredienteEnHamburguesa.objects.filter(hamburguesa_id=hamburguesa_id)
+                for element in ingredientes:
                     result['ingredientes'].append({'path':'https://burgerrestaurantapi.herokuapp.com/ingrediente/' + str(element.pk)})
                 return Response(result, status=status.HTTP_200_OK)
 
